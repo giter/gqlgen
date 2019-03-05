@@ -234,16 +234,16 @@ func ToCamel(s string) string {
 	}
 	buffer := make([]rune, 0, len(s))
 	upper := true
-	lastWasUpper := false
+	// lastWasUpper := false
 
 	for _, c := range s {
 		if isDelimiter(c) {
 			upper = true
 			continue
 		}
-		if !lastWasUpper && unicode.IsUpper(c) {
-			upper = true
-		}
+		// if !lastWasUpper && unicode.IsUpper(c) {
+		// 	upper = true
+		// }
 
 		if upper {
 			buffer = append(buffer, unicode.ToUpper(c))
@@ -251,7 +251,7 @@ func ToCamel(s string) string {
 			buffer = append(buffer, unicode.ToLower(c))
 		}
 		upper = false
-		lastWasUpper = unicode.IsUpper(c)
+		// lastWasUpper = unicode.IsUpper(c)
 	}
 
 	return string(buffer)

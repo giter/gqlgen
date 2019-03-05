@@ -6,6 +6,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestLint(t *testing.T) {
+
+	// require.Equal(t, "ITicket", ToGo("ITicket"))
+	require.Equal(t, "Iticket", ToCamel("iticket"))
+}
+
 func TestToUpper(t *testing.T) {
 	require.Equal(t, "ToCamel", ToCamel("TO_CAMEL"))
 	require.Equal(t, "ToCamel", ToCamel("to_camel"))
