@@ -244,6 +244,7 @@ func ToCamel(s string) string {
 			for _, c := range s {
 				if isDelimiter(c) {
 					indirect = true
+					break
 				}
 			}
 
