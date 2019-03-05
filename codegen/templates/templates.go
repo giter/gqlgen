@@ -229,21 +229,42 @@ func Call(p *types.Func) string {
 }
 
 func ToCamel(s string) string {
+
 	if s == "_" {
 		return "_"
 	}
+
+	if len(s) > 0 {
+
+		k := s[0]
+		if k >= 'A' && k <= 'Z' {
+
+			indirect := false
+
+			for _, c := range s {
+				if isDelimiter(c) {
+					indirect = true
+				}
+			}
+
+			if !indirect {
+				return s
+			}
+		}
+	}
+
 	buffer := make([]rune, 0, len(s))
 	upper := true
-	// lastWasUpper := false
+	lastWasUpper := false
 
 	for _, c := range s {
 		if isDelimiter(c) {
 			upper = true
 			continue
 		}
-		// if !lastWasUpper && unicode.IsUpper(c) {
-		// 	upper = true
-		// }
+		if !lastWasUpper && unicode.IsUpper(c) {
+			upper = true
+		}
 
 		if upper {
 			buffer = append(buffer, unicode.ToUpper(c))
@@ -251,7 +272,7 @@ func ToCamel(s string) string {
 			buffer = append(buffer, unicode.ToLower(c))
 		}
 		upper = false
-		// lastWasUpper = unicode.IsUpper(c)
+		lastWasUpper = unicode.IsUpper(c)
 	}
 
 	return string(buffer)
